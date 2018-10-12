@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.fulugou.demo.mapper.AdminUserMapper">
+  <resultMap id="adminUserMap" type="net.fulugou.demo.model.AdminUser">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="avatar" jdbcType="LONGVARBINARY" property="avatar" />
+  </resultMap>
+
+  <insert id="insert" parameterType="net.fulugou.demo.model.AdminUser">
+     insert into admin_users (username, password, email, avatar, created_at)
+      values (#{username}, #{password}, #{email},  #{avatar}, #{createdAt})
+  </insert>
+
+  <select id="selectById" resultMap="adminUserMap">
+      SELECT * FROM admin_users WHERE  id = #{id}
+  </select>
+
+  <select id="selectAll" resultType="net.fulugou.demo.model.AdminUser">
+    SELECT id,
+      username,
+      password,
+      email,
+      avatar,
+      created_at
+    FROM admin_users
+  </select>
+
+  <select id="selectByUsername" resultType="net.fulugou.demo.model.AdminUser">
+    SELECT id,
+      username,
+      password,
+      email,
+      avatar,
+      created_at
+    FROM admin_users
+    WHERE username = #{username,jdbcType=VARCHAR}
+  </select>
+</mapper>
