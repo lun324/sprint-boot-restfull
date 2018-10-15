@@ -33,11 +33,17 @@ public class ShiroConfiguration {
         Map<String, String> filterRuleMap = new HashMap<>();
         // 设置以下部分请求不需要走 jwt过滤器
         filterRuleMap.put("/", "anon");
+        filterRuleMap.put("/error", "anon");
         filterRuleMap.put("/401", "anon");
         filterRuleMap.put("/403", "anon");
-        filterRuleMap.put("/404", "anon");
         filterRuleMap.put("/login", "anon");
         filterRuleMap.put("/register", "anon");
+        filterRuleMap.put("/swagger-ui.html", "anon");
+        filterRuleMap.put("/v2/api-docs", "anon");
+        filterRuleMap.put("/swagger-resources", "anon");
+        filterRuleMap.put("/configuration/security", "anon");
+        filterRuleMap.put("/webjars/**", "anon");
+
         // 除上面设置的部分，其它所有请求走 jwt过滤器
         filterRuleMap.put("/**", "jwt");
         filterFactoryBean.setFilterChainDefinitionMap(filterRuleMap);

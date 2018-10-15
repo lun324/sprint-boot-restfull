@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 import org.apache.shiro.web.filter.AccessControlFilter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 /**
  * Created by zero on 2018/10/9.
@@ -40,7 +41,11 @@ public class JWTAccessControllerFilter extends AccessControlFilter {
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
         String requestToken = httpRequest.getHeader("Authorization");
 
+        String getRequestURL = httpRequest.getRequestURL().toString();
+
+
         if (BaseUtils.isNullOrEmpty(requestToken)) {
+            log.info("getRequestURL:"+ getRequestURL +"<br>");
             httpResponse.sendRedirect("/401");
             return false;
         }
@@ -86,4 +91,5 @@ public class JWTAccessControllerFilter extends AccessControlFilter {
 //        }
 //        return true;
 //    }
+
 }
